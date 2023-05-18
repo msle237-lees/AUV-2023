@@ -21,6 +21,9 @@ import yaml
 # Import logging for logging
 import logging as log
 
+# Import os for file manipulation
+import os
+
 # Define some constants
 bar_max = 2000
 bar_min = 1000
@@ -84,9 +87,9 @@ left_layout = [
     [sg.Checkbox('Enable Sensors', font=('Helvetica', 20), key='enable_sensors')],
     [sg.Checkbox('Enable Camera', font=('Helvetica', 20), key='enable_camera')],
     [sg.HorizontalSeparator()],
-    [sg.Button('Update Configuration', font=('Helvetica', 15), key='update_config', size=(18, 1))],
-    [sg.Button('Save Configuration', font=('Helvetica', 15), key='save_config', size=(18, 1))],
-    [sg.Button('Load Configuration', font=('Helvetica', 15), key='load_config', size=(18, 1))],
+    [sg.Button('Update Config', font=('Helvetica', 15), key='update_config', size=(18, 1))],
+    [sg.Button('Save Config', font=('Helvetica', 15), key='save_config', size=(18, 1))],
+    [sg.Button('Load Config', font=('Helvetica', 15), key='load_config', size=(18, 1))],
     [sg.Button('Start', font=('Helvetica', 15), key='start', size=(18, 1))],
     [sg.Button('Stop', font=('Helvetica', 15), key='stop', size=(18, 1))],
     [sg.Button('Exit', font=('Helvetica', 15), key='exit', size=(18, 1))]
@@ -137,6 +140,12 @@ window = sg.Window('Surface Station', layout, size=(1920, 1080), element_justifi
 with open('configs/config.yml', 'r') as conf:
     config = yaml.load(conf, Loader=yaml.FullLoader)
     
+# If config['AUV'] is true, then the config folder is configs/AUV/
+if config['AUV']:
+    config_path = 'configs/AUV/'
+else:
+    config_path = 'configs/ROV/'
+    
 # Load the settings file
 with open('configs/settings.yml', 'r') as conf:
     settings = yaml.load(conf, Loader=yaml.FullLoader)
@@ -145,7 +154,9 @@ with open('configs/settings.yml', 'r') as conf:
 for key, value in settings.items():
     window[key].update(value)
 
-# 
+# TODO: Add the ability to update the config file for each node
+
+# TODO: Add the network code
 
 # Main loop
 while True:
@@ -158,8 +169,9 @@ while True:
     # Handle events
     # save_settings
     if event == 'save_settings':
-        pass
-     
+        with open('configs/settings.yml', 'w') as conf:
+            yaml.dump(values, conf)
+    
     # update_config 
     elif event == 'update_config':
         pass
@@ -183,7 +195,7 @@ while True:
     # exit or window closed
     if event == sg.WINDOW_CLOSED or event == 'exit':
         break
-    
+
 window.close()
 
 # Event List

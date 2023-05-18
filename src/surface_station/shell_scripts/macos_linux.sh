@@ -10,9 +10,9 @@ then
 fi
 
 echo "Building Docker image..."
-docker build -t surface_station ../
+docker build -t surface_station:latest .
 
 echo "Running Docker container..."
 IP=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}')
 xhost + $IP
-docker run -e DISPLAY=$IP:0.0 surface_station
+docker run --rm -e DISPLAY=$IP:0 -it surface_station:latest

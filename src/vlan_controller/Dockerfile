@@ -1,6 +1,13 @@
-FROM python:3.11.0a1-alpine3.14
-WORKDIR /src/camera_package
+FROM python:3.9-slim-buster
+
+RUN apt-get update && apt-get install -y 
+
+WORKDIR /app
+
 COPY requirements.txt .
-RUN pip install -r requirements.txt
-COPY . .
-CMD ["python", "src/main.py"]
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY main.py .
+RUN mkdir -p /app/logs
+
+CMD ["python3", "main.py"]

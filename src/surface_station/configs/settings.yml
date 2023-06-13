@@ -1,6 +1,0 @@
-motor_power_efficiency: 50
-camera_fps: 45
-enable_motors: True
-enable_servos: True
-enable_sensors: True
-enable_camera: True

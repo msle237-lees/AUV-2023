@@ -1,0 +1,27 @@
+mode: AUV
+serial: 0
+motors: 0
+camera: 0
+servos: 0
+sensors: 0
+motor_speed_min: 1250
+motor_speed_max: 1750
+camera_1_resolution: (1280, 720)
+camera_1_fps: 60
+camera_2_resolution: (1280, 720)
+camera_2_fps: 60
+servo_1_min: 1000
+servo_1_max: 2000
+servo_2_min: 1000
+servo_2_max: 2000
+temperature_unit: Celsius
+humidity_unit: '%'
+voltage_unit: V
+current_unit: A
+imu_axis_min: -180
+imu_axis_max: 180
+pressure_unit: Pa
+orin_ip_address: '192.168.1.140'
+arduino_serial_port: /dev/ttyACM0
+arduino_baudrate: 115200
+arduino_timeout: 0.1
